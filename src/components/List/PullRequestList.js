@@ -62,10 +62,12 @@ class PullRequestList extends Component {
                 style={{
                     height: 1,
                     width: "100%",
-                    backgroundColor: "#CED0CE",
+                    borderBottomColor: "#EEE",
+                    borderBottomWidth: 1
 
                 }}
             />
+
 
             <Text style={styles.prBody}>
                 {pr.item.body}

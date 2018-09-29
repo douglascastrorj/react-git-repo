@@ -72,11 +72,13 @@ class RepositoriesList extends Component {
 
             </View>
 
+            
             <View
                 style={{
                     height: 1,
                     width: "100%",
-                    backgroundColor: "#CED0CE",
+                    borderBottomColor: "#EEE",
+                    borderBottomWidth: 1
 
                 }}
             />
