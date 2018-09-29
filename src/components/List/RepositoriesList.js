@@ -72,6 +72,15 @@ class RepositoriesList extends Component {
 
             </View>
 
+            <View
+                style={{
+                    height: 1,
+                    width: "100%",
+                    backgroundColor: "#CED0CE",
+
+                }}
+            />
+
             <View style={styles.cardContainerText}>
                 <Text style={{ marginBottom: 10, textAlign: 'center', padding: 10 }}>
                     {repo.item.description}
@@ -85,7 +94,7 @@ class RepositoriesList extends Component {
                     borderRadius: 0,
                     marginLeft: 0,
                     marginRight: 0,
-                    marginBottom: 0,
+                    marginBottom: 10,
                 }}
                 title="View Pull Requests"
                 onPress={() => {

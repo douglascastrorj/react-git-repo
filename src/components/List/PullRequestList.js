@@ -3,21 +3,17 @@ import { StyleSheet, Text, View, Linking } from 'react-native';
 
 import ListComponent from '../List';
 
-import {
-    Card,
-    ListItem,
-    Button,
-    Icon,
-} from 'react-native-elements';
+import { Card, Button } from 'react-native-elements';
 
 
-import { REPO_API } from '../../utils/misc';
+import { REPO_API, formatDate } from '../../utils/misc';
 
-// const PR_URL = `https://api.github.com/repos/freeCodeCamp/freeCodeCamp/pulls`;
+
+
 
 class PullRequestList extends Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
 
         this.state = {
@@ -37,6 +33,7 @@ class PullRequestList extends Component {
 
     };
 
+
     renderItemCard = pr => (
         <Card
             title={pr.item.title}
@@ -44,14 +41,35 @@ class PullRequestList extends Component {
                 uri: pr.item.user.avatar_url,
             }}>
 
-            <Text style={{ marginBottom: 10, textAlign: 'center', padding: 10 }} >
-                Author: {pr.item.user.login}
-            </Text>
+            <View style={styles.cardContainerText}>
+                <View>
+                    <Text style={{ fontWeight: 'bold' }}>Author </Text>
+                    <Text  >
+                        {pr.item.user.login}
+                    </Text>
+                </View>
 
-           
-            <Text style={{ marginBottom: 10, textAlign: 'justify', padding: 10 }}>
+                <View>
+                    <Text style={{ fontWeight: 'bold' }}>Created At </Text>
+                    <Text >
+                        {formatDate(pr.item.created_at)}
+                    </Text>
+                </View>
+
+            </View>
+
+            <View
+                style={{
+                    height: 1,
+                    width: "100%",
+                    backgroundColor: "#CED0CE",
+
+                }}
+            />
+
+            <Text style={styles.prBody}>
                 {pr.item.body}
-            </Text>           
+            </Text>
 
             <Button
 
@@ -60,7 +78,7 @@ class PullRequestList extends Component {
                     borderRadius: 0,
                     marginLeft: 0,
                     marginRight: 0,
-                    marginBottom: 0,
+                    marginBottom: 10,
                 }}
                 title="View on Github"
                 onPress={() => {
@@ -84,20 +102,20 @@ class PullRequestList extends Component {
 
 
     render() {
-        console.log("URL DE PR",this.state.url)
+        console.log("URL DE PR", this.state.url)
 
         return this.state.url ?
-        (
-            <View style={styles.container}>
-                <ListComponent
-                    renderItem={this.renderItemCard}
-                    updateList={this.updateList}
-                    noPagination
-                    url={this.state.url}
-                />
-            </View>
-        )
-        : null
+            (
+                <View style={styles.container}>
+                    <ListComponent
+                        renderItem={this.renderItemCard}
+                        updateList={this.updateList}
+                        noPagination
+                        url={this.state.url}
+                    />
+                </View>
+            )
+            : null
     }
 
 }
@@ -109,8 +127,22 @@ const styles = StyleSheet.create({
         width: '100%',
         backgroundColor: '#ffffff'
     },
-    cardBody:{
+
+    cardBody: {
         height: 200
+    },
+
+    cardContainerText: {
+        flex: 1,
+        padding: 10,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
+
+    prBody: {
+        marginBottom: 10,
+        textAlign: 'justify',
+        padding: 10
     }
 })
 
