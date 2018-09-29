@@ -34,67 +34,74 @@ class PullRequestList extends Component {
     };
 
     limitBodyText = text => {
+
+        if (!text) return null;
+
         const words = text.split(' ');
-        const first100Words = words.splice(0,100)
+        const first100Words = words.splice(0, 100)
 
         return first100Words.join(' ') + '...';
     }
 
 
     renderItemCard = pr => (
-        <Card
-            title={pr.item.title}
-            image={{
-                uri: pr.item.user.avatar_url,
-            }}>
+        <View style={{ marginBottom: 10 }}>
+            <Card
 
-            <View style={styles.cardContainerText}>
-                <View>
-                    <Text style={{ fontWeight: 'bold' }}>Author </Text>
-                    <Text  >
-                        {pr.item.user.login}
-                    </Text>
+                title={pr.item.title}
+                image={{
+                    uri: pr.item.user.avatar_url,
+                }}>
+
+                <View style={styles.cardContainerText}>
+                    <View>
+                        <Text style={{ fontWeight: 'bold' }}>Author </Text>
+                        <Text  >
+                            {pr.item.user.login}
+                        </Text>
+                    </View>
+
+                    <View>
+                        <Text style={{ fontWeight: 'bold' }}>Created At </Text>
+                        <Text >
+                            {formatDate(pr.item.created_at)}
+                        </Text>
+                    </View>
+
                 </View>
 
-                <View>
-                    <Text style={{ fontWeight: 'bold' }}>Created At </Text>
-                    <Text >
-                        {formatDate(pr.item.created_at)}
-                    </Text>
-                </View>
+                <View
+                    style={{
+                        height: 1,
+                        width: "100%",
+                        borderBottomColor: "#EEE",
+                        borderBottomWidth: 1
 
-            </View>
-
-            <View
-                style={{
-                    height: 1,
-                    width: "100%",
-                    borderBottomColor: "#EEE",
-                    borderBottomWidth: 1
-
-                }}
-            />
+                    }}
+                />
 
 
-            <Text style={styles.prBody}>
-                {this.limitBodyText(pr.item.body)}
-            </Text>
+                <Text style={styles.prBody}>
+                    {this.limitBodyText(pr.item.body)}
+                </Text>
 
-            <Button
+                <Button
 
-                backgroundColor="#8E24AA"
-                buttonStyle={{
-                    borderRadius: 0,
-                    marginLeft: 0,
-                    marginRight: 0,
-                    marginBottom: 10,
-                }}
-                title="View on Github"
-                onPress={() => {
-                    this.onItemPress(pr);
-                }}
-            />
-        </Card>
+                    backgroundColor="#8E24AA"
+                    buttonStyle={{
+                        borderRadius: 0,
+                        marginLeft: 0,
+                        marginRight: 0,
+                        marginBottom: 10,
+                    }}
+                    title="View on Github"
+                    onPress={() => {
+                        this.onItemPress(pr);
+                    }}
+                />
+            </Card>
+        </View>
+
     );
 
 
