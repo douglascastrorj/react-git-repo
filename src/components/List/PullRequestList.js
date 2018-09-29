@@ -33,6 +33,13 @@ class PullRequestList extends Component {
 
     };
 
+    limitBodyText = text => {
+        const words = text.split(' ');
+        const first100Words = words.splice(0,100)
+
+        return first100Words.join(' ') + '...';
+    }
+
 
     renderItemCard = pr => (
         <Card
@@ -70,7 +77,7 @@ class PullRequestList extends Component {
 
 
             <Text style={styles.prBody}>
-                {pr.item.body}
+                {this.limitBodyText(pr.item.body)}
             </Text>
 
             <Button
@@ -104,7 +111,6 @@ class PullRequestList extends Component {
 
 
     render() {
-        console.log("URL DE PR", this.state.url)
 
         return this.state.url ?
             (
@@ -130,9 +136,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#ffffff'
     },
 
-    cardBody: {
-        height: 200
-    },
 
     cardContainerText: {
         flex: 1,
@@ -144,7 +147,7 @@ const styles = StyleSheet.create({
     prBody: {
         marginBottom: 10,
         textAlign: 'justify',
-        padding: 10
+        padding: 10,
     }
 })
 
