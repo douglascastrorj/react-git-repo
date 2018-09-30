@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import ListComponent from '../List';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {
     Card,
     ListItem,
     Button,
+    Avatar
 } from 'react-native-elements';
 
 import { SEARCH_API } from '../../utils/misc';
@@ -40,6 +41,67 @@ class RepositoriesList extends Component {
         />
     )
 
+    renderItem = repo => (
+        <TouchableOpacity
+            onPress={() => {
+                //alert(item.name)
+                this.onItemPress(repo.item);
+            }}>
+            <View
+                style={{
+                    flex: 1,
+                    flexDirection: 'row',
+                    width: '100%',
+                    padding: 10,
+                    alignItems: 'center',
+                    borderBottomColor: '#ccc',
+                    borderBottomWidth: 1,
+                }}>
+                <Avatar size="xlarge" source={{ uri: repo.item.owner.avatar_url }} />
+
+                <View style={{ marginLeft: 10, paddingRight: 10, flex: 1 }}>
+                    <Text
+                        style={{
+                            textAlign: 'left',
+                            fontSize: 20,
+                            marginBottom: 5,
+                            color: '#666',
+                            fontWeight: 'bold',
+                            fontFamily: 'sans-serif',
+                        }}>
+                        {repo.item.name}
+                    </Text>
+
+                    <View
+                        style={{
+                            flex: 1,
+                            flexDirection: 'row',
+                        }}>
+                        <View
+                            style={{
+                                flex: 1,
+                                flexDirection: 'row',
+                            }}>
+                            <Text style={{ fontWeight: 'bold', color: '#666' }}>Stars </Text>
+                            <Text style={{ color: '#aaa' }}>
+                                {repo.item.stargazers_count}
+                            </Text>
+                        </View>
+                        <View
+                            style={{
+                                flex: 1,
+                                flexDirection: 'row',
+                            }}>
+                            <Text style={{ fontWeight: 'bold', color: '#666' }}>Forks </Text>
+                            <Text style={{ color: '#aaa' }}>{repo.item.forks}</Text>
+                        </View>
+                    </View>
+                </View>
+            </View>
+        </TouchableOpacity>
+    );
+
+
     //usada para renderizar cards
     renderItemCard = repo => (
         <Card
@@ -72,7 +134,7 @@ class RepositoriesList extends Component {
 
             </View>
 
-            
+
             <View
                 style={{
                     height: 1,
@@ -123,7 +185,7 @@ class RepositoriesList extends Component {
         return (
             <View style={styles.container}>
                 <ListComponent
-                    renderItem={this.renderItemCard}
+                    renderItem={this.renderItem}
                     updateList={this.updateList}
                     url={REPO_URL}
                 />
