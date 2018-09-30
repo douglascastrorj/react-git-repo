@@ -23,7 +23,7 @@ class PullRequestList extends Component {
 
 
     //funcao q retorna novo estado
-    updateList = (previousData, response, page) => {
+    updateList = ( response ) => {
         return {
             data: response,
             error: response.error || null,
@@ -106,14 +106,7 @@ class PullRequestList extends Component {
 
 
     onItemPress = (pr) => {
-
-        console.log(pr.item.html_url)
         Linking.openURL(pr.item.html_url)
-        // alert('press item')
-        // this.props.navigation.navigate('Repository', {
-        //     user: item.owner.login,
-        //     repository: item.name
-        // })
     }
 
 

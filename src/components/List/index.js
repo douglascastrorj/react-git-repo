@@ -25,8 +25,6 @@ class ListComponent extends Component {
     const { page } = this.state;
     let url =  this.props.noPagination ? this.props.url : this.props.url + page ;
 
-    console.log("CHEGUEI AQUI ", url);
-
     this.setState({ loading: true });
 
     setTimeout(() => {
@@ -38,22 +36,16 @@ class ListComponent extends Component {
           if(res.message){
             alert(res.message)
           }else{
-            this.setState(this.props.updateList(this.state.data, res, page));
+
+            const newState =  this.props.noPagination 
+                              ?  this.props.updateList( res )
+                              :  this.props.updateList(this.state.data, res, page)
+            this.setState(newState);
           }
-          // this.setState({
-          //   data: page === 1 ? res.items : [...this.state.data, ...res.items],
-          //   error: res.error || null,
-          //   loading: false,
-          //   refreshing: false
-          // });
-
-          console.log("até aqui tudo bem", res)
-
           
         })
         .catch(error => {
           this.setState({ error, loading: false });
-          console.log('deu pau', error)
         });
     }, 1500);
     
@@ -84,35 +76,6 @@ class ListComponent extends Component {
     );
   };
 
-  renderSeparator = () => {
-    return (
-      <View
-        style={{
-          height: 1,
-          width: "86%",
-          backgroundColor: "#CED0CE",
-          marginLeft: "14%"
-        }}
-      />
-    );
-  };
-
-  renderHeader = () => {
-    return null;
-    // return <SearchBar placeholder="Type Here..."  round onChangeText={(value) => {this.setState({search: value})}} />;
-    // return (
-    //   <View>
-    //     <Input
-    //                 placeholder="Search"
-    //                 type="textinput"
-    //                 value={this.state.search}
-    //                 onChangeText={ value => this.setState({search: value})}
-    //                 autoCapitalize={'none'}
-
-    //             />
-    //   </View>
-    // )
-  };
 
   renderFooter = () => {
 
@@ -134,7 +97,6 @@ class ListComponent extends Component {
   };
 
   render() {
-    // ItemSeparatorComponent={this.renderSeparator}
     return (
       <List containerStyle={{ marginTop: 0, borderTopWidth: 0, borderBottomWidth: 0 }}>
         <FlatList
@@ -142,7 +104,6 @@ class ListComponent extends Component {
           renderItem={this.props.renderItem}
           keyExtractor={item => String(item.id)}
           
-          ListHeaderComponent={this.renderHeader}
           ListFooterComponent={this.renderFooter}
           onRefresh={this.handleRefresh}
           refreshing={this.state.refreshing}
