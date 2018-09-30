@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {  StyleSheet, View, Text } from 'react-native';
-import {  ListItem } from "react-native-elements";
 import createNavBar from '../../Navbar';
 
 import PullRequestList from '../../List/PullRequestList';
@@ -20,7 +19,6 @@ export default class Repository extends Component {
             repository: repo
         }
 
-        console.log(user,repo)
     }
 
     render() {
